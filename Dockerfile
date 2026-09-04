@@ -6,8 +6,8 @@ FROM zimengxiong/excalidash-backend:latest
 
 USER root
 
-# Install nginx
-RUN apk add --no-cache nginx && \
+# Install nginx and curl
+RUN apk add --no-cache nginx curl && \
     mkdir -p /run/nginx /var/www/html /etc/nginx/http.d
 
 # Copy frontend static files from Stage 1
