@@ -13,6 +13,11 @@ sed "s/__PORT__/${RENDER_PORT}/g" /etc/nginx/nginx.conf.template > /etc/nginx/ht
 echo "[STARTUP] Testing Nginx configuration..."
 nginx -t
 
+# Ensure frontend assets have native trackpad panning enabled
+if [ -f /patch-canvas-zoom.js ]; then
+    node /patch-canvas-zoom.js /var/www/html/assets || true
+fi
+
 # Set environment variables for Node.js backend
 export PORT=8000
 export TRUST_PROXY=true

@@ -13,6 +13,10 @@ RUN apk add --no-cache nginx curl && \
 # Copy frontend static files from Stage 1
 COPY --from=frontend-assets /usr/share/nginx/html /var/www/html
 
+# Restore native Excalidraw navigation (two-finger trackpad pan instead of forced zoom)
+COPY patch-canvas-zoom.js /patch-canvas-zoom.js
+RUN chmod +x /patch-canvas-zoom.js && node /patch-canvas-zoom.js /var/www/html/assets
+
 # Copy unified nginx configuration template
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
